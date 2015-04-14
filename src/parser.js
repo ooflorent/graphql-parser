@@ -54,12 +54,12 @@ export const variable = seq(angleL, lex(ident).as('variable'), angleR)
 
 export const arg = alt(variable, identifier)
 export const call = seq(identifier, parenL, sep(arg, comma).as('args'), parenR)
-export const calls = seq(period, call).many()
+export const calls = seq(period, call).many().as('calls')
 
-export const field = lazy(() => seq(identifier, calls.maybe().as('calls'), fields.maybe().as('fields')))
-export const fields = seq(braceL, sep(field, comma), braceR)
+export const field = lazy(() => seq(identifier, calls.maybe(), fields.maybe()))
+export const fields = seq(braceL, sep(field, comma), braceR).as('fields')
 
-export const query = seq(call, fields.as('fields'))
-export const fragment = seq(identifier, fields.as('fields'))
+export const query = seq(call, fields)
+export const fragment = seq(identifier, fields)
 
 export const node = alt(query, fragment)
