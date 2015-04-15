@@ -50,11 +50,11 @@ const period = lex(str('.'))
 const comma = lex(str(','))
 
 export const identifier = lex(ident).as('identifier')
-export const variable = seq(angleL, lex(ident).as('variable'), angleR)
+export const variable = seq(angleL, identifier, angleR).as('variable')
 
 export const arg = alt(variable, identifier)
 export const call = seq(identifier, parenL, sep(arg, comma).as('args'), parenR)
-export const calls = seq(period, call).many().as('calls')
+export const calls = seq(period, call).repeat(1).as('calls')
 
 export const field = lazy(() => seq(identifier, calls.maybe(), fields.maybe()))
 export const fields = seq(braceL, sep(field, comma), braceR).as('fields')
