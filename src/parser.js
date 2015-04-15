@@ -48,17 +48,19 @@ const angleL = lex(str('<'))
 const angleR = lex(str('>'))
 const period = lex(str('.'))
 const comma = lex(str(','))
+const amp = lex(str('&'))
 
 export const identifier = lex(ident).as('identifier')
 export const variable = seq(angleL, identifier, angleR).as('variable')
 export const json = lazy(() => seq(braceL, alt(json, match(/[^{}]+/)).many(), braceR))
+export const ref = seq(amp, identifier).as('ref')
 
 export const arg = alt(variable, identifier, json)
 export const call = seq(identifier, parenL, sep(arg, comma).as('args'), parenR)
 export const calls = seq(period, call).repeat(1).as('calls')
 
 export const field = lazy(() => seq(identifier, calls.maybe(), fields.maybe()))
-export const fields = seq(braceL, sep(field, comma), braceR).as('fields')
+export const fields = seq(braceL, sep(alt(field, ref), comma), braceR).as('fields')
 
 export const query = seq(call, fields)
 export const fragment = seq(identifier, fields)
