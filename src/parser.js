@@ -1,4 +1,4 @@
-import {alt, custom, lazy, seq, str} from 'parsly'
+import {alt, custom, lazy, match, seq, str} from 'parsly'
 
 function isWhitespace(ch) {
   return ch === 32 || ch >= 9 && ch <= 13
@@ -51,8 +51,9 @@ const comma = lex(str(','))
 
 export const identifier = lex(ident).as('identifier')
 export const variable = seq(angleL, identifier, angleR).as('variable')
+export const json = lazy(() => seq(braceL, alt(json, match(/[^{}]+/)).many(), braceR))
 
-export const arg = alt(variable, identifier)
+export const arg = alt(variable, identifier, json)
 export const call = seq(identifier, parenL, sep(arg, comma).as('args'), parenR)
 export const calls = seq(period, call).repeat(1).as('calls')
 
@@ -63,3 +64,4 @@ export const query = seq(call, fields)
 export const fragment = seq(identifier, fields)
 
 export const node = alt(query, fragment)
+export const root = node.many().as('nodes')

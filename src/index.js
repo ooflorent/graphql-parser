@@ -1,5 +1,5 @@
-import {node} from './parser'
+import {root} from './parser'
 
 export default function parse(source) {
-  return node(String(source)).parse()
+  return root(String(source)).parse()
 }
