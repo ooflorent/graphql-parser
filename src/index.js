@@ -1,7 +1,8 @@
-import {root} from './parser'
-import toAST from './transform'
+import {node} from './parser'
+import transform from './transform'
 
-export default function parse(source) {
-  const nodes = root.parse(String(source))
-  return toAST(nodes)
+export function parse(source) {
+  return transform(node.parse(String(source)))
 }
+
+export traverse from './traverse'

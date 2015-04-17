@@ -8,10 +8,6 @@ const fields = (nodes) => Array.isArray(nodes) ? nodes.filter(isField) : []
 
 const transform = new Transform([
   [
-    (node) => sequence(node.nodes),
-    (node) => node.nodes
-  ],
-  [
     (node) => simple(node.type) && sequence(node.fields),
     (node) => new Node({type: 'Fragment', name: node.type, fields: fields(node.fields), fragments: fragments(node.fields)}),
   ],

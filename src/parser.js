@@ -104,4 +104,3 @@ export const query = seq(call, fields)
 export const fragment = seq(ident.as('type'), fields)
 
 export const node = alt(query, fragment)
-export const root = node.many().as('nodes')
