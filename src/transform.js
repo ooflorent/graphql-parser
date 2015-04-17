@@ -6,11 +6,11 @@ const transform = new Transform([
     (node) => node.nodes
   ],
   [
-    (node) => simple(node.type) && subtree(node.fields),
+    (node) => simple(node.type) && sequence(node.fields),
     (node) => new Node({type: 'Fragment', name: node.type, fields: node.fields}),
   ],
   [
-    (node) => simple(node.identifier) && sequence(node.args) && subtree(node.fields),
+    (node) => simple(node.identifier) && sequence(node.args) && sequence(node.fields),
     (node) => new Node({type: 'Query', name: node.identifier, arguments: node.args, fields: node.fields}),
   ],
   [
@@ -22,16 +22,16 @@ const transform = new Transform([
     (node) => new Node({type: 'Field', name: node.identifier, calls: node.calls, fields: node.fields})
   ],
   [
-    (node) => simple(node.variable),
-    (node) => new Node({type: 'Identifier', name: node.variable})
-  ],
-  [
     (node) => simple(node.ref),
     (node) => new Node({type: 'FragmentIdentifier', name: node.ref}),
   ],
   [
+    (node) => simple(node.variable),
+    (node) => new Node({type: 'Identifier', name: node.variable})
+  ],
+  [
     (node) => simple(node.json),
-    (node) => new Node({type: 'Literal', value: node.json}),
+    (node) => new Node({type: 'Literal', value: JSON.parse(node.json)}),
   ],
 ])
 
