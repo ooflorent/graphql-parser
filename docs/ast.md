@@ -20,6 +20,7 @@ interface Query <: RootNode {
   name: string;
   arguments: [ Identifier | Literal ];
   fields: [ Field ];
+  fragments: [ Fragment | FragmentIdentifier ];
 }
 
 ```
@@ -31,6 +32,7 @@ interface Fragment <: RootNode {
   type: "Fragment";
   name: string;
   fields: [ Field ];
+  fragments: [ Fragment | FragmentIdentifier ];
 }
 ```
 
@@ -43,7 +45,8 @@ interface Field <: Node {
   type: "Field";
   name: string;
   calls: [ Call ] | null;
-  fields: [ Field ] | null;
+  fields: [ Field ];
+  fragments: [ Fragment | FragmentIdentifier ];
 }
 ```
 

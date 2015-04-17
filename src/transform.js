@@ -1,5 +1,11 @@
 import Transform, {Node, simple, sequence, subtree} from 'parsly/transform'
 
+const isFragment = (node) => node.type === 'Fragment' || node.type === 'FragmentIdentifier'
+const isField = (node) => !isFragment(node)
+
+const fragments = (nodes) => Array.isArray(nodes) ? nodes.filter(isFragment) : []
+const fields = (nodes) => Array.isArray(nodes) ? nodes.filter(isField) : []
+
 const transform = new Transform([
   [
     (node) => sequence(node.nodes),
@@ -7,11 +13,11 @@ const transform = new Transform([
   ],
   [
     (node) => simple(node.type) && sequence(node.fields),
-    (node) => new Node({type: 'Fragment', name: node.type, fields: node.fields}),
+    (node) => new Node({type: 'Fragment', name: node.type, fields: fields(node.fields), fragments: fragments(node.fields)}),
   ],
   [
     (node) => simple(node.identifier) && sequence(node.args) && sequence(node.fields),
-    (node) => new Node({type: 'Query', name: node.identifier, arguments: node.args, fields: node.fields}),
+    (node) => new Node({type: 'Query', name: node.identifier, arguments: node.args, fields: fields(node.fields), fragments: fragments(node.fields)}),
   ],
   [
     (node) => simple(node.identifier) && sequence(node.args),
@@ -19,7 +25,7 @@ const transform = new Transform([
   ],
   [
     (node) => simple(node.identifier),
-    (node) => new Node({type: 'Field', name: node.identifier, calls: node.calls, fields: node.fields})
+    (node) => new Node({type: 'Field', name: node.identifier, calls: node.calls, fields: fields(node.fields), fragments: fragments(node.fields)})
   ],
   [
     (node) => simple(node.ref),
