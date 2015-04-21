@@ -9,7 +9,7 @@ npm install --save graphql-parser
 ## Usage
 
 ```js
-import graphql from graphql-parser
+import graphql from 'graphql-parser'
 
 const IMAGE_WIDTH = 80
 const IMAGE_HEIGHT = 80
