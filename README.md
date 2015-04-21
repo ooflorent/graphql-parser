@@ -1,4 +1,4 @@
-# graphql-paser
+# graphql-parser
 
 ## Install
 
