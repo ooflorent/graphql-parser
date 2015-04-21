@@ -3,8 +3,5 @@
   "loose": true,
   "blacklist": [
     "es6.tailCall"
-  ],
-  "optional": [
-    "runtime"
   ]
 }
