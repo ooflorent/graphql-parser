@@ -1,40 +1,41 @@
-import Transform, {Node, simple, sequence, subtree} from 'parsly/transform'
+import Transform, {simple, sequence, subtree} from 'parsly/transform'
+import * as GraphQL from './types'
 
-const isFragment = (node) => node.type === 'Fragment' || node.type === 'FragmentIdentifier'
-const isField = (node) => !isFragment(node)
+const isField = (node) => node.constructor === GraphQL.Field
+const isFragment = (node) => !isField(node)
 
-const fragments = (nodes) => Array.isArray(nodes) ? nodes.filter(isFragment) : []
 const fields = (nodes) => Array.isArray(nodes) ? nodes.filter(isField) : []
+const fragments = (nodes) => Array.isArray(nodes) ? nodes.filter(isFragment) : []
 
 const transform = new Transform([
   [
     (node) => simple(node.type) && sequence(node.fields),
-    (node) => new Node({type: 'Fragment', name: node.type, fields: fields(node.fields), fragments: fragments(node.fields)}),
+    (node) => new GraphQL.Fragment(node.type, fields(node.fields), fragments(node.fields)),
   ],
   [
-    (node) => simple(node.identifier) && sequence(node.args) && sequence(node.fields),
-    (node) => new Node({type: 'Query', name: node.identifier, arguments: node.args, fields: fields(node.fields), fragments: fragments(node.fields)}),
+    (node) => simple(node.identifier) && subtree(node.args) && sequence(node.fields),
+    (node) => new GraphQL.Query(node.identifier, node.args, fields(node.fields), fragments(node.fields)),
   ],
   [
-    (node) => simple(node.identifier) && sequence(node.args),
-    (node) => new Node({type: 'Call', name: node.identifier, arguments: node.args})
+    (node) => simple(node.identifier) && subtree(node.args),
+    (node) => new GraphQL.Call(node.identifier, node.args),
   ],
   [
     (node) => simple(node.identifier),
-    (node) => new Node({type: 'Field', name: node.identifier, calls: node.calls, fields: fields(node.fields), fragments: fragments(node.fields)})
+    (node) => new GraphQL.Field(node.identifier, fields(node.fields), fragments(node.fields), node.calls),
   ],
   [
     (node) => simple(node.ref),
-    (node) => new Node({type: 'FragmentIdentifier', name: node.ref}),
+    (node, context) => context.args[node.ref],
   ],
   [
     (node) => simple(node.variable),
-    (node) => new Node({type: 'Identifier', name: node.variable})
+    (node, context) => context.params[node.variable],
   ],
   [
     (node) => simple(node.json),
-    (node) => new Node({type: 'Literal', value: JSON.parse(node.json)}),
+    (node) => JSON.parse(node.json),
   ],
 ])
 
-export default (ast) => transform.run(ast)
+export default (ast, context) => transform.run(ast, context)

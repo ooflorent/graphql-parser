@@ -91,9 +91,12 @@ export const json = lex(alt(keywords, number, string, array, object))
 
 export const identifier = ident.as('identifier')
 export const variable = seq(angleL, ident.as('variable'), angleR)
-export const ref = seq(amp, ident.as('ref'))
+export const ref = seq(amp, match(/\d+/).as('ref'))
 
-export const arg = alt(variable, json.as('json'))
+// Rules
+// -----
+
+export const arg = alt(variable, ref, json.as('json'))
 export const call = seq(identifier, parenL, sep(arg, comma).as('args'), parenR)
 export const calls = seq(period, call).repeat(1).as('calls')
 
@@ -104,3 +107,8 @@ export const query = seq(call, fields)
 export const fragment = seq(ident.as('type'), fields)
 
 export const node = alt(query, fragment)
+
+/**
+ * Parses the given GraphQL expression and returns the resulting AST.
+ */
+export default (source) => node.parse(String(source))
