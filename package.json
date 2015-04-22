@@ -14,7 +14,7 @@
     "lib"
   ],
   "dependencies": {
-    "graphql-types": "^1.0.0",
+    "graphql-types": "^1.0.1",
     "parsly": "^2.2.1"
   },
   "devDependencies": {
