@@ -1,5 +1,5 @@
 import Transform, {simple, sequence, subtree} from 'parsly/transform'
-import * as GraphQL from './types'
+import * as GraphQL from 'graphql-types'
 
 const isField = (node) => node.constructor === GraphQL.Field
 const isFragment = (node) => !isField(node)
