@@ -1,7 +1,7 @@
 import parse from './parser'
 import transform from './transform'
 
-export * as GraphQL from './types'
+export * as GraphQL from 'graphql-types'
 export { parse, transform }
 
 export default function graphql(strings, ...args) {

@@ -14,8 +14,8 @@
     "lib"
   ],
   "dependencies": {
-    "babel-runtime": "^5.1.11",
-    "parsly": "^2.2.0"
+    "graphql-types": "^1.0.0",
+    "parsly": "^2.2.1"
   },
   "devDependencies": {
     "babel": "^5.1.11",
