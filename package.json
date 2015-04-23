@@ -14,7 +14,7 @@
     "lib"
   ],
   "dependencies": {
-    "graphql-types": "^1.0.1",
+    "graphql-types": "^1.0.2",
     "lodash": "^3.7.0",
     "parsly": "^3.0.0"
   },
