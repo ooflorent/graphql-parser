@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+* Expose `concat` helper
+
 ## 1.2.0
 
 * Add AST generation
