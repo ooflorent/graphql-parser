@@ -1,5 +1,5 @@
 import {alt, lazy, match, seq, str} from 'parsly/parser'
-import {ident, lex} from './util'
+import {lex} from './util'
 
 const number = match(/-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/)
 const string = seq(str('"'), match(/[^"]+/), str('"'))

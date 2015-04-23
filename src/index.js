@@ -1,9 +1,10 @@
 import parse from './parser'
 import transform from './transform'
+import Transformer from './transform/transformer'
+import * as GraphQL from 'graphql-types'
+import * as Types from './types'
 
-export * as GraphQL from 'graphql-types'
-export * as Types from './types'
-export { parse }
+export { parse, GraphQL, Transformer, Types }
 
 export default function graphql(strings, ...args) {
   let source = strings[0] || ''
