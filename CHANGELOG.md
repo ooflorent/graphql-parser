@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0
+
+* Add AST generation
+* Add AST transformation API
+* Add `traverse` utility
+* Remove inconsistencies of argument parsing algorithm
+
 ## 1.1.1
 
 * Upgrade `graphql-types`

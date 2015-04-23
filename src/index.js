@@ -1,8 +1,10 @@
 import parse from './parser'
 import transform from './transform'
+import Transformer from './transform/transformer'
+import * as GraphQL from 'graphql-types'
+import * as Types from './types'
 
-export * as GraphQL from 'graphql-types'
-export { parse, transform }
+export { parse, GraphQL, Transformer, Types }
 
 export default function graphql(strings, ...args) {
   let source = strings[0] || ''
@@ -13,6 +15,11 @@ export default function graphql(strings, ...args) {
 
   const ast = parse(source)
   return (params) => {
-    return transform(ast, { args, params })
+    const state = {
+      arguments: args,
+      variables: params,
+    }
+
+    return transform(ast, state)
   }
 }

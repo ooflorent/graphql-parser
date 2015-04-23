@@ -1,0 +1,9 @@
+{
+  "Call":       ["arguments"],
+  "Field":      ["calls", "fields", "fragments"],
+  "Fragment":   ["fields", "fragments"],
+  "Identifier": [],
+  "Literal":    [],
+  "Query":      ["arguments", "fields", "fragments"],
+  "Reference":  []
+}
