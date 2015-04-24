@@ -17,7 +17,7 @@ const IMAGE_HEIGHT = 80
 const PostFragment = graphql`
   post {
     title,
-    published_at,
+    published_at
   }
 `
 const UserQuery = graphql`
