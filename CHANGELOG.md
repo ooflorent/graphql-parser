@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+* Rework AST ([specification][docs-ast])
+
 ## 1.3.0
 
 * Expose `concat` helper
@@ -27,3 +31,5 @@
 ## 1.0.0
 
 * Initial release
+
+[docs-ast]: docs/ast.md

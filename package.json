@@ -13,25 +13,17 @@
   "files": [
     "lib"
   ],
-  "dependencies": {
-    "graphql-types": "^1.0.2",
-    "lodash": "^3.7.0",
-    "parsly": "^3.0.0"
-  },
   "devDependencies": {
-    "babel": "^5.1.11",
-    "babel-eslint": "^3.0.1",
-    "chai": "^2.2.0",
-    "eslint": "^0.19.0",
-    "mocha": "^2.2.4"
+    "babel": "^5.4.3",
+    "babel-eslint": "^3.1.5",
+    "eslint": "^0.21.1"
   },
   "scripts": {
     "clean": "rm -rf lib",
     "build": "babel src --out-dir lib --copy-files",
     "watch": "npm run build -- --watch",
-    "lint": "eslint src/ test/",
-    "test": "mocha --compilers js:babel/register",
+    "lint": "eslint src/",
     "prepublish": "npm run clean && npm run build",
-    "travis": "npm run lint && npm run test"
+    "travis": "npm run lint"
   }
 }
