@@ -169,10 +169,9 @@ export default class Tokenizer {
   }
 
   scanString() {
-    const start = this.pos
-    let value = ''
-
     this.pos++
+
+    let value = ''
     while (this.pos < this.source.length) {
       let ch = this.source.charAt(this.pos)
       if (ch === '"') {
