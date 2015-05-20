@@ -1,7 +1,7 @@
 {
   "stage": 0,
-  "loose": true,
   "blacklist": [
-    "es6.tailCall"
+    "es6.tailCall",
+    "spec.functionName"
   ]
 }
