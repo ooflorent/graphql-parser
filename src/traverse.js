@@ -1,40 +1,30 @@
-import isPlainObject from 'lodash/lang/isPlainObject'
-import * as t from './types'
-
-export default function traverse(node, opts, state) {
-  if (Array.isArray(node)) {
-    return node.map((child) => traverse.node(child, opts, state))
-  }
-
-  if (!isPlainObject(node)) {
+export default function traverse(node, visitor, parent) {
+  if (!node) {
     return node
   }
 
-  return traverse.node(node, opts, state)
-}
+  const type = node.type
+  switch (type) {
+    case 'Query':
+      node.fields = node.fields.map((n) => traverse(n, visitor, node))
+      break
 
-traverse.node = function(node, opts, state) {
-  const keys = t.VISITOR_KEYS[node.type]
-  if (!keys) return node
+    case 'Field':
+      node.params = node.params.map((n) => traverse(n, visitor, node))
+      node.fields = node.fields.map((n) => traverse(n, visitor, node))
+      break
 
-  let replacement = call('enter', node, opts, state)
-  if (replacement !== node) return replacement
-
-  for (let i = 0; i < keys.length; i++) {
-    node[keys[i]] = traverse(node[keys[i]], opts, state)
+    case 'Argument':
+      node.value = traverse(node.value, visitor, node)
+      break
   }
 
-  replacement = call('exit', node, opts, state)
-  if (replacement !== node) return replacement
+  if (typeof visitor[type] === 'function') {
+    const repl = visitor[type](node, parent)
+    if (repl !== void 0) {
+      node = repl
+    }
+  }
 
   return node
-}
-
-function call(event, node, opts, state) {
-  opts = opts[node.type] || opts
-
-  const visitor = opts[event]
-  const replacement = visitor(node, state)
-
-  return replacement
 }
