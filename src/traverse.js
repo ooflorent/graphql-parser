@@ -1,4 +1,8 @@
 export default function traverse(node, visitor, parent) {
+  if (!node) {
+    return node
+  }
+
   const type = node.type
   switch (type) {
     case 'Query':
@@ -16,7 +20,10 @@ export default function traverse(node, visitor, parent) {
   }
 
   if (typeof visitor[type] === 'function') {
-    node = visitor[type](node, parent)
+    const repl = visitor[type](node, parent)
+    if (repl !== void 0) {
+      node = repl
+    }
   }
 
   return node
