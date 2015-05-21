@@ -16,7 +16,7 @@ npm install --save graphql-parser
 
 ## Usage
 
-`graphql-parser` exposes a tagged template function for parsing GraphqL queries. It outputs a function generating a JS object describing the query.
+`graphql-parser` exposes a tagged template function for parsing GraphQL queries. It outputs a function generating a JS object describing the query.
 
 ```js
 import graphql from 'graphql-parser'
