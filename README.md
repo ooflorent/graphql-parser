@@ -1,5 +1,9 @@
 # graphql-parser
 
+> Experimental Facebook's GraphQL parser
+
+This parser is inspired by Facebook's graphQL
+
 ## Install
 
 ```sh
@@ -7,6 +11,8 @@ npm install --save graphql-parser
 ```
 
 ## Usage
+
+`graphql-parser` exposes a tagged template function for parsing GraphqL queries. It outputs a function generating a JS object describing the query.
 
 ```js
 import graphql from 'graphql-parser'
@@ -51,7 +57,58 @@ const query = UserQuery({
 })
 ```
 
+In the above example output will be:
+
+```js
+{
+  "user": {
+    "params": {
+      "id": 1337
+    },
+    "fields": {
+      "id": {},
+      "nickname": {},
+      "avatar": {
+        "params": {
+          "width": 80,
+          "height": 80
+        },
+        "fields": {
+          "url": {
+            "params": {
+              "protocol": "https"
+            }
+          }
+        }
+      },
+      "posts": {
+        "params": {
+          "first": 10
+        },
+        "fields": {
+          "count": {},
+          "edges": {
+            "fields": {
+              "node": {
+                "alias": "post",
+                "fields": {
+                  "id": {},
+                  "title": {},
+                  "published_at": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## AST manipulation
+
+`graphql-parser` also exposes lower level API for generating [GraphQL AST][docs-ast] and traversing it.
 
 ```js
 import { parse, traverse } from 'graphql-parser'
@@ -86,3 +143,5 @@ const obj = traverse(ast, {
 })
 
 ```
+
+[docs-ast]: docs/ast.md
