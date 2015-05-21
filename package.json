@@ -14,16 +14,18 @@
     "lib"
   ],
   "devDependencies": {
-    "babel": "^5.4.3",
+    "babel": "^5.4.5",
     "babel-eslint": "^3.1.5",
-    "eslint": "^0.21.1"
+    "eslint": "^0.21.1",
+    "lodash": "^3.9.1",
+    "mocha": "^2.2.5"
   },
   "scripts": {
     "clean": "rm -rf lib",
     "build": "babel src --out-dir lib --copy-files",
     "watch": "npm run build -- --watch",
     "lint": "eslint src/",
-    "prepublish": "npm run clean && npm run build",
-    "travis": "npm run lint"
+    "test": "mocha",
+    "prepublish": "npm run clean && npm run build"
   }
 }
