@@ -1,6 +1,6 @@
 {
   "name": "graphql-parser",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Experimental Facebook's GraphQL parser",
   "author": "Florent Cailhol <florent.cailhol@gmail.com>",
   "license": "MIT",
