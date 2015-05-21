@@ -2,7 +2,11 @@
 
 > Experimental Facebook's GraphQL parser
 
-This parser is inspired by Facebook's graphQL
+This parser is inspired by Facebook's articles about GraphQL. It supports the latest shown syntax.
+
+* [Introducing Relay and GraphQL][fb-1]
+* [Building The Facebook News Feed With Relay][fb-2]
+* [GraphQL Introduction][fb-3] (current implementation)
 
 ## Install
 
@@ -145,3 +149,6 @@ const obj = traverse(ast, {
 ```
 
 [docs-ast]: docs/ast.md
+[fb-1]: https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html
+[fb-2]: https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html
+[fb-3]: https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html
