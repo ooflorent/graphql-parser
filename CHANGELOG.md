@@ -2,7 +2,7 @@
 
 ## 2.1.0
 
-* Don't mutate AST nodes(#5)
+* Don't mutate AST nodes (#5)
 * Upgrade vendors
 
 ## 2.0.0
