@@ -75,4 +75,18 @@ describe('graphql', () => {
       f: {}
     })
   })
+
+  it('injects parameters', () => {
+    const query = graphql`
+      {
+        user(id: <id>)
+      }
+    `
+
+    const user1 = query({ id: 1 })
+    const user2 = query({ id: 2 })
+
+    assert.equal(user1.user.params.id, 1)
+    assert.equal(user2.user.params.id, 2)
+  })
 })

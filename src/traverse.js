@@ -3,6 +3,9 @@ export default function traverse(node, visitor, parent) {
     return node
   }
 
+  // Duplicate node to avoid mutations
+  node = { ...node }
+
   const type = node.type
   switch (type) {
     case 'Query':
