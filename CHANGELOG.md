@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+
+* Don't mutate AST nodes(#5)
+* Upgrade vendors
+
 ## 2.0.0
 
 * Update GraphQL syntax according to the latest preview
